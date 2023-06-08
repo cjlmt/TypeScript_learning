@@ -1,0 +1,1 @@
+export let hi: string = 'hello menatplay'

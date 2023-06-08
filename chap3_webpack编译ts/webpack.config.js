@@ -1,5 +1,7 @@
 const path = require("path");
 //nodejs里的一个模块，帮助拼接路径
+const HTMLWebpackPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 module.exports = {
     //指定项目众多文件中的入口文件。源码一般放在src目录下
     entry: "./src/index.ts",
@@ -10,6 +12,7 @@ module.exports = {
         //打包后文件的名字
         filename: "bundle.js",
     },
+    mode: 'development',
     //指定webpack打包时要使用的模块
     module: {
         //指定要加载的规则
@@ -26,4 +29,14 @@ module.exports = {
             }
         ]
     },
+    plugins: [
+        //应用html-webpack-plugin插件
+        new HTMLWebpackPlugin({
+            template: './src/index.html'
+        }),
+        new CleanWebpackPlugin()
+    ],
+    resolve: {
+        extensions: ['.ts', '.js']
+    }
 }
