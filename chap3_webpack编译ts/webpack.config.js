@@ -12,7 +12,8 @@ module.exports = {
         //打包后文件的名字
         filename: "bundle.js",
     },
-    mode: 'development',
+    // mode: 'development',
+    mode: 'production',
     //指定webpack打包时要使用的模块
     module: {
         //指定要加载的规则
@@ -21,9 +22,29 @@ module.exports = {
                 //指定规则生效的文件
                 test: /\.ts$/,  //使用正则表达式，匹配所有以ts结尾的文件进行编译
                 //要使用的loader
-                use: {
-                    loader: "ts-loader"
-                },
+                use: [
+                    {
+                        loader: "babel-loader",
+                        options: {
+                            presets: [
+                                [
+                                    "@babel/preset-env",
+                                    {
+                                        "targets": {
+                                            "chrome": "58",
+                                            "ie": "11"
+                                        },
+                                        "corejs": "3",
+                                        "useBuiltIns": "usage"
+                                    }
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        loader: "ts-loader"
+                    }
+                ],
                 //不参与编译的文件
                 exclude: /node_modules/
             }

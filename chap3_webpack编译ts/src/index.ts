@@ -4,3 +4,5 @@ function func(a: number, b: number): number {
 }
 console.log(func(123, 456));
 console.log(hi);
+console.log(Promise);
+
