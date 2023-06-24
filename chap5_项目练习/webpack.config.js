@@ -11,6 +11,13 @@ module.exports = {
         path: path.resolve(__dirname, "dist"), // 把路径完整地拼出来
         //打包后文件的名字
         filename: "bundle.js",
+
+        //告诉webpack不使用箭头函数和const
+        environment: {
+            arrowFunction: false,
+            const: false
+            //如果不希望兼容老版本的浏览器可以不写
+        }
     },
     // mode: 'development',
     mode: 'production',
@@ -32,7 +39,7 @@ module.exports = {
                                     {
                                         "targets": {
                                             "chrome": "58",
-                                            "ie": "11"
+                                            "ie": "10"
                                         },
                                         "corejs": "3",
                                         "useBuiltIns": "usage"
@@ -47,6 +54,35 @@ module.exports = {
                 ],
                 //不参与编译的文件
                 exclude: /node_modules/
+            },
+            //设置less文件的处理
+            {
+                test: /\.less$/,
+                use: [
+                    //注意use中loader的执行顺序是从下向上的
+                    "style-loader",
+                    "css-loader",
+                    //引入postcss,配置比较复杂，要放一个对象
+                    {
+                        loader: "postcss-loader",
+                        options: {
+                            postcssOptions: {
+                                plugins: [
+                                    [
+                                        "postcss-preset-env",
+                                        //和babel配置类似
+                                        {
+                                            browsers: 'last 2 versions'
+                                            //兼容每种浏览器的最新两个版本
+                                        }
+                                    ]
+                                ]
+                            }
+                        }
+                    },
+                    "less-loader"
+                    //less转换为css后再用css-loader
+                ]
             }
         ]
     },

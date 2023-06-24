@@ -1,0 +1,115 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font: bold 20px "Courier";
+    overflow: hidden
+}
+
+.box {
+    position: absolute;
+    width: 360px;
+    height: 420px;
+    border: 10px solid #000;
+    border-radius: 20px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #b7d4a8;
+
+    .screen {
+        position: absolute;
+        width: 304px;
+        height: 304px;
+        border: 2px solid #000;
+        left: 50%;
+        top: 20px;
+        transform: translate(-50%);
+
+        .snake {
+            div {
+                position: absolute;
+                width: 10px;
+                height: 10px;
+                background-color: #000;
+                // margin: 0.5px;
+                border: 1px solid #b7d4a8;
+                border-radius: 1px;
+                top: 0px;
+                left: 0px;
+            }
+        }
+
+        .food {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            // border: 1px solid #b7d4a8;
+            background-color: #b7d4a8;
+            top: 10px;
+            left: 10px;
+
+
+            .row,
+            .col {
+                position: absolute;
+                width: 4px;
+                height: 9px;
+                background-color: #000;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                border-radius: 1px;
+            }
+
+            .row {
+                transform: translate(-50%, -50%) rotate(45deg);
+            }
+
+            .col {
+                transform: translate(-50%, -50%) rotate(-45deg);
+            }
+
+            .point {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #b7d4a8;
+                width: 1px;
+                height: 1px;
+            }
+        }
+    }
+
+    .words {
+        position: absolute;
+        display: flex;
+        width: 290px;
+        justify-content: space-between;
+        left: 50%;
+        bottom: 20px;
+        transform: translate(-50%);
+        // font-family: Courier, monospace;
+        // font-size: 20px;
+        // font-weight: 700;
+    }
+}
+
+.notice {
+    position: absolute;
+    top: 50%;
+    right: 70px;
+    background-color: #b7d4a8;
+    width: 360px;
+    height: 40px;
+    border: 3px solid #000;
+    border-radius: 2px;
+    transform: translateY(-50%);
+    font-size: 15px;
+    text-align: center;
+    line-height: 37px;
+}
