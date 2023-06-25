@@ -70,8 +70,6 @@ ts的类和js中的类大同小异
     }
     ```
   
-    - **如果不赋初值要给属性名加引号**
-  
 - 示例：
 
   - ```typescript
@@ -381,9 +379,9 @@ ts的类和js中的类大同小异
 
   - **【它只能[被其他类所继承不能用来创建实例]()】**
 
-    - 抽象类的意义就是<u>专门用来被其他类用来继承的，毕竟创建自己的实例没有意义</u>
+    - 抽象类的意义就是<u>专门用来被其他类继承的，毕竟创建自己的实例没有意义</u>
 
-    - 使用abstract能禁止别人用于创建对象
+    - 使用abstract能禁止该类被用于创建对象
 
   - ```typescript
     abstract class Animal{
@@ -473,7 +471,7 @@ ts的类和js中的类大同小异
 
   - #### 可以限制一个对象的接口，对象只有包含接口中定义的所有属性和方法时才能匹配接口。
 
-    - 实现了接口的类实例化的对象就是能匹配接口的对象；其实本质还是把接口当作一种类型（也可以说规范）
+    - 实现了接口的类实例化的对象就是能匹配接口的对象；**其实本质还是把接口当作一种类型**（也可以说规范）
 
     - ```tsx
       //（检查对象类型）
@@ -552,7 +550,7 @@ ts的类和js中的类大同小异
 
   - 上例中，test函数有一个参数类型不确定，但是能确定的时其返回值的类型和参数的类型是相同的，由于类型不确定所以参数和返回值均使用了any，**（可以解决问题）但是很明显这样做是不合适的**，首先使用any会**关闭TS的类型检查**，其次这样设置也**不能体现出参数和返回值是相同的类型**
 
-  - ##### 使用泛型：
+- ##### 使用泛型：
 
   - ```typescript
     function test<T>(arg: T): T{
@@ -564,69 +562,67 @@ ts的类和js中的类大同小异
 
     - 要先定义了这个泛型才可以使用
 
-  - 那么如何使用上边的函数呢？
+- ##### 那么如何使用上边的函数呢？
 
-    - 方式一**（直接使用）**：
-  
-      - ```typescript
-        test(10)
-        ```
+  - 方式一**（直接使用）**：
 
-      - 使用时可以直接传递参数使用，类型会由**TS自动推断**出来，但有时编译器无法自动推断时还需要使用下面的方式
-
-    - 方式二**（指定类型）**：
-  
-      - ```typescript
-        test<number>(10)
-        ```
-
-      - 也可以在**函数后手动指定泛型**
-
-  - 可以**同时指定多个泛型，泛型间使用逗号隔开：**
-  
     - ```typescript
-      function test<T, K>(a: T, b: K): K{
-          return b;
-      }
-      
-      test<number, string>(10, "hello");
+      test(10)
       ```
 
-    - 使用泛型时，完全可以将泛型当成是一个普通的类去使用
+    - 使用时可以直接传递参数使用，类型会由**TS自动推断**出来，但有时编译器无法自动推断时还需要使用下面的方式
 
-  - **类中同样可以使用泛型**：
-  
+  - 方式二**（指定类型）**：
+
     - ```typescript
-      class MyClass<T>{
-          prop: T;
-      
-          constructor(prop: T){
-              this.prop = prop;
-          }
-      }
+      test<number>(10)
       ```
 
-  - 除此之外，也可以**对泛型的范围进行约束**
-  
-    - 如果直接写T或者K，泛型的范围就太大了，什么类型都可以。某些情况希望限定泛型的范围
+    - 也可以在**函数后手动指定泛型**
+
+- 可以**同时指定多个泛型，泛型间使用逗号隔开：**
+
+  - ```typescript
+    function test<T, K>(a: T, b: K): K{
+        return b;
+    }
     
-    - ```typescript
-      interface MyInter{
-          length: number;
-      }
-      
-      function test<T extends MyInter>(arg: T): number{
-          return arg.length;
-      }
-      ```
-  
-    - 使**用T extends MyInter表示泛型T必须是MyInter的子类**，**这里不一定非要使用接口，类和抽象类同样适用**。
+    test<number, string>(10, "hello");
+    ```
+
+  - 使用泛型时，完全可以将泛型当成是一个普通的类型去使用
+
+- **类中同样可以使用泛型**：
+
+  - ```typescript
+    class MyClass<T>{
+        prop: T;
     
-      - T实现了MyInter这个接口，说明**T也有length这个属性，并且类型为number**。
-      - arg:T 说明参数也有length这个属性，而且值要是number
-      - ***<u>此时传入的参数必须实现MyInter接口，或者有length这个属性</u>***
+        constructor(prop: T){
+            this.prop = prop;
+        }
+    }
+    ```
+
+- 除此之外，也可以**对泛型的范围进行约束**
+
+  - 如果直接写T或者K，泛型的范围就太大了，什么类型都可以。某些情况希望限定泛型的范围
+
+  - ```typescript
+    interface MyInter{
+        length: number;
+    }
     
-  
+    function test<T extends MyInter>(arg: T): number{
+        return arg.length;
+    }
+    ```
+
+  - 使**用T extends MyInter表示泛型T必须是MyInter的子类**，**这里不一定非要使用接口，类和抽象类同样适用**。
+
+    - T实现了MyInter这个接口，说明**T也有length这个属性，并且类型为number**。
+    - arg:T 说明参数也有length这个属性，而且值要是number
+    - ***<u>此时传入的参数必须实现MyInter接口，或者有length这个属性</u>***
 
 
 

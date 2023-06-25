@@ -359,7 +359,7 @@ snake其实只是一个容器，操作蛇是操作里面的div
   - **addBody**和食物发生碰撞后，身体要增加一个div
 
     - <u>*要获取外层snake元素，利用它尾部新增一个div元素*</u>
-    - 往element元素的结束标签之前添加一个div**使用insertAdjacentHTML("beforeend","\<div>\</div>)"**（方便）
+    - 往element元素的结束标签之前添加一个div**使用insertAdjacentHTML("beforeend","\<div>\</div>")**（方便）
     - addbody不用考虑新div的坐标，因为紧接着就会执行movebody方法，让后面的元素获取前一个元素的坐标
 
   - ```tsx
